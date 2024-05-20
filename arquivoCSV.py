@@ -1,10 +1,14 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Carregar o arquivo CSV
-df = pd.read_csv('facebook_reviews.csv')
+@st.cache  # Cache para melhorar o desempenho
+def load_data():
+    df = pd.read_csv('facebook_reviews.csv')
+    return df
+
+df = load_data()
 
 # Configurar o título do aplicativo
 st.title('Análise de Avaliações do Facebook')
@@ -15,9 +19,7 @@ st.write(df.head())
 
 # Exibir o gráfico
 st.write("Gráfico de Avaliações do Facebook:")
-plt.figure(figsize=(10, 6))
 sns.histplot(data=df, x='Avaliação', bins=5, kde=True)
-plt.xlabel('Avaliação')
-plt.ylabel('Contagem')
 st.pyplot()
+
 
