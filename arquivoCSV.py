@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Carregar o arquivo CSV
 @st.cache  # Cache para melhorar o desempenho
