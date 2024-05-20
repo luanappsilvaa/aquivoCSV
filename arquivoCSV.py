@@ -1,23 +1,23 @@
-# Solicita ao usuário que insira seu nome, idade e cidade
-nome = input("Digite seu nome: ")
-idade = int(input("Digite sua idade: "))
-cidade = input("Digite sua cidade: ")
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Cria um dicionário para armazenar as informações
-pessoa = {
-    "nome": nome,
-    "idade": idade,
-    "cidade": cidade
-}
+# Carregar o arquivo CSV
+df = pd.read_csv('facebook_reviews.csv')
 
-# Cria uma lista e adiciona o dicionário a ela
-lista_pessoas = []
-lista_pessoas.append(pessoa)
+# Configurar o título do aplicativo
+st.title('Análise de Avaliações do Facebook')
 
-# Exibe as informações armazenadas na lista
-print("\nLista de Pessoas:")
-for pessoa in lista_pessoas:
-    print("Nome:", pessoa["nome"])
-    print("Idade:", pessoa["idade"])
-    print("Cidade:", pessoa["cidade"])
-    print()  # Adiciona uma linha em branco entre as pessoas
+# Exibir os primeiros registros do DataFrame (opcional)
+st.write("Aqui estão os primeiros registros do DataFrame:")
+st.write(df.head())
+
+# Exibir o gráfico
+st.write("Gráfico de Avaliações do Facebook:")
+plt.figure(figsize=(10, 6))
+sns.histplot(data=df, x='Avaliação', bins=5, kde=True)
+plt.xlabel('Avaliação')
+plt.ylabel('Contagem')
+st.pyplot()
+
