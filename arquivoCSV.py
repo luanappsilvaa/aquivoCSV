@@ -1,26 +1,34 @@
 import streamlit as st
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Carregar o arquivo CSV
-@st.cache  # Cache para melhorar o desempenho
+# Carregar os dados do arquivo CSV
+@st.cache
 def load_data():
-    df = pd.read_csv('facebook_reviews.csv')
+    df = pd.read_csv('heart_failure_clinical_records_dataset.csv')
     return df
 
+# Função para criar o gráfico
+def create_plot(df):
+    plt.figure(figsize=(10, 6))
+    sns.countplot(data=df, x='sex', hue='DEATH_EVENT')
+    plt.title('Death Event Count by Gender')
+    plt.xlabel('Gender')
+    plt.ylabel('Count')
+    plt.legend(title='Death Event', loc='upper right')
+    st.pyplot()
+
+# Carregar os dados
 df = load_data()
 
-# Configurar o título do aplicativo
-st.title('Análise de Avaliações do Facebook')
+# Título do Streamlit
+st.title('Heart Failure Clinical Records Dataset')
 
-# Exibir os primeiros registros do DataFrame (opcional)
-st.write("Aqui estão os primeiros registros do DataFrame:")
-st.write(df.head())
+# Visualizar os dados
+st.write(df)
 
-# Exibir o gráfico
-st.write("Gráfico de Avaliações do Facebook:")
-sns.histplot(data=df, x='Avaliação', bins=5, kde=True)
-st.pyplot()
+# Criar e exibir o gráfico
+create_plot(df)
 
 
